@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.link.mapper.UserMapper">  <!--映射接口位置  一定要修改-->
+<select id="queryUserByName" resultType="com.link.pojo.User" parameterType="com.link.pojo.User">
+    select username from user where username = #{username}
+</select >
+
+</mapper>

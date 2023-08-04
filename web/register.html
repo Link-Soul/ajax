@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<form action="/register" method="post">
+    username<input type="text" id="username"><span id="un"></span> <br/>
+    password<input type="password" id="password1"><span id="pw1"></span><br/>
+    qrpasswd<input type="password" id="password2"><span id="pw2"></span><br/>
+    realname<input type="text" id="realname"><br/>
+    phone<input type="text" id="phone"><span id="ph"></span><br/>
+    email<input type="text" id="email"><span id="em"></span><br/>
+    <button id="confirm">confirm</button>
+    <button id="register">register</button>
+</form>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+    var determine=0;
+    $("#username").change(function (){
+        var username = $("#username").val()
+        //alert(username)
+
+        //传后台看存不存在  ajax请求
+        $.ajax({
+            url:'checkUserName',    //后台接口路径
+            type:'get',             //请求类型
+            data: {"username":username},    //携带的参数
+            dataType:'json',        //数据格式
+            cache: false,
+            success:function (data){//回调函数  （成功之后）
+                //console.log(data.result)
+                //debugger
+                if(data.result){
+                    // let username = document.getElementById("username");
+                    // username.innerHTML="<span style='color: green'>√</span>"
+                    $("#un").html("<span style='color: red'>用户名已存在</span>")
+
+                }else {
+                    $("#un").html("<span style='color: green'> √</span>")
+                    determine+=1
+                }
+            }
+        })
+    })
+    $("#password1").change(function s(){
+
+        //alert("11111111")
+        var val = $("#password1").val()
+        var reg =/^[a-zA-Z0-9_-]{4,16}$/;
+        if (reg.test(val)){         //不能反过来？
+            $("#pw1").html("<span style='color: green'>yes</span>")
+            determine+=1
+        }else {
+            $("#pw1").html("<span style='color: red'>no</span>")
+
+        }
+    })
+    $("#password2").change(function (){
+
+        if ($("#password1").val()===$("#password2").val()){
+            $("#pw2").html("<span style='color: green'>yes</span>")
+            determine+=1
+        }else {
+            $("#pw2").html("<span style='color: red'>no</span>")
+
+        }
+    })
+    $("#phone").change(function (){
+        var reg =/^0{0,1}(13[0-9]|15[7-9]|153|156|18[7-9])[0-9]{8}$/;
+        var val = $("#phone").val()
+        if (reg.test(val)){         //不能反过来？
+            $("#ph").html("<span style='color: green'>yes</span>")
+            determine+=1
+        }else {
+            $("#ph").html("<span style='color: red'>no</span>")
+
+        }
+    })
+    $("#email").change(function (){
+        var reg =/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        var val = $("#email").val()
+        if (reg.test(val)){         //不能反过来？
+            $("#em").html("<span style='color: green'>yes</span>")
+            determine+=1
+        }else {
+            $("#em").html("<span style='color: red'>no</span>")
+
+        }
+    })
+    $("#confirm").click(function () {
+        alert(determine)
+    })
+    $("#register").click(function (){
+        if (determine===5){
+
+        }
+    })
+
+</script>
+</body>
+
+
+
+</html>
