@@ -11,6 +11,8 @@
     <title>$Title$</title>
   </head>
   <body>
-  $END$
+
+  <a href="register.html">点击进行注册</a>
+  <a href="login.html">点击进行登录</a>
   </body>
 </html>

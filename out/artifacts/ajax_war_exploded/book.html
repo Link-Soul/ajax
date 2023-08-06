@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+insert<br/>
+<form action="/ajax_war_exploded/insert" method="post">
+    bookname<input type="text" id="booknameInsert" name="booknameInsert"><span id="insertSpan"></span>
+    <button type="button" id="insertSubmit">submit</button>
+    <button type="submit" id="submitInsert" hidden="hidden"></button>
+</form>
+<hr/>
+delete
+<form action="/ajax_war_exploded/delete" method="post">
+    bookname<input type="text" id="booknameDelete" name="booknameDelete">
+    <button type="submit" >submit</button>
+
+</form>
+<hr/>
+update
+<form action="/ajax_war_exploded/update" method="post">
+    bookname<input type="text" id="booknameUpdate" name="booknameUpdate">
+    status<input type="text" id="statusUpdate" name="statusUpdate">
+    <button type="submit" >submit</button>
+
+</form>
+<hr/>
+select
+<form action="/ajax_war_exploded/select" method="post">
+    bookname<input type="text" id="booknameSelect" name="booknameSelect">
+    <button type="submit" >submit</button>
+</form>
+<hr>
+
+<form action="/ajax_war_exploded/borrow" method="post">
+    input borrow book name<input type="text" id="borrow" name="borrow"><span id="bb"></span>
+    <br><button type="submit" id="submitBorrow" hidden="hidden"></button>
+    <button type="button" id="borrowButton">borrow</button>
+</form>
+<br>
+
+<form action="/ajax_war_exploded/return" method="post">
+    input return book name<input type="text" id="return" name="return"><span id="rb"></span>
+    <br><button type="submit" id="submitReturn" hidden="hidden"></button>
+    <button type="button" id="borrowReturn">return</button>
+</form>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+    var ifSubmit=true
+    $("#booknameInsert").change(function (){
+        var insert = $("#booknameInsert").val();
+        $.ajax({
+            url:'checkBookName',
+            type:'get',
+            data:{"bookname":insert},
+            dataType:'json',
+            success:function (data){
+
+                if(data.result>0){
+                    $("#insertSpan").html("<span style='color: red'>book exist</span>")
+                    ifSubmit=false
+
+                }else {
+                    $("#insertSpan").html("<span style='color: green'>OK</span>")
+                    ifSubmit=true
+                }
+            }
+        })
+
+    })
+    $("#insertSubmit").click(function (){
+        console.log(ifSubmit)
+        if (ifSubmit){
+            $("#submitInsert").click()
+            console.log("11111111")
+        }else {
+            alert("book exist")
+        }ifSubmit=false
+    })
+
+
+    var ifBorrow
+    $("#borrow").change(function (){
+        var borrow = $("#borrow").val();
+        $.ajax({
+            url:'checkBorrow',
+            type:'post',
+            data:{"bookname":borrow},
+            dataType:'json',
+            success:function (data){
+                console.log(data.result)
+                if(data.result===0||data.result===-1){
+                    $("#bb").html("<span style='color: red'>book exist</span>")
+                    ifBorrow=false
+
+                }else {
+                    $("#bb").html("<span style='color: green'>OK</span>")
+                    ifBorrow=true
+                }
+            }
+        })
+
+    })
+    $("#borrowButton").click(function (){
+        console.log(ifBorrow)
+        if (ifBorrow){
+            $("#submitBorrow").click()
+            console.log("11111111")
+        }else {
+            alert("book exist")
+        }ifBorrow=false
+    })
+
+
+
+    var ifReturn
+    $("#return").change(function (){
+        var borrow = $("#return").val();
+        $.ajax({
+            url:'checkBorrow',
+            type:'post',
+            data:{"bookname":borrow},
+            dataType:'json',
+            success:function (data){
+                console.log(data.result)
+                if(data.result===1||data.result===-1){
+                    $("#rb").html("<span style='color: red'>book can not return</span>")
+                    ifReturn=false
+
+                }else {
+                    $("#rb").html("<span style='color: green'>OK</span>")
+                    ifReturn=true
+                }
+            }
+        })
+
+    })
+    $("#borrowReturn").click(function (){
+        console.log(ifReturn)
+        if (ifReturn){
+            $("#submitReturn").click()
+            console.log("11111111")
+        }else {
+            alert("book exist")
+        }ifReturn=false
+    })
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.link.mapper.BookMapper">  <!--映射接口位置  一定要修改-->
+    <insert id="insert" parameterType="com.link.pojo.Book">
+        insert into book value(#{bookname},#{status})
+    </insert>
+    <delete id="delete" parameterType="com.link.pojo.Book">
+        delete from book where bookname=#{bookname}
+    </delete>
+    <update id="update" parameterType="com.link.pojo.Book">
+        update book set status=#{status} where bookname=#{bookname}
+    </update>
+    <select id="select" resultType="com.link.pojo.Book" >
+        select * from book
+    </select>
+    <select id="checkInsert" resultType="com.link.pojo.Book" >
+        select bookname from book where bookname=#{bookname}
+    </select>
+    <select id="checkBorrow" resultType="com.link.pojo.Book" parameterType="com.link.pojo.Book">
+        select status from book where bookname =#{bookname}
+    </select>
+    <select id="checkReturn" resultType="com.link.pojo.Book" parameterType="com.link.pojo.Book">
+        select status from book where bookname =#{bookname}
+    </select>
+    <update id="borrowUpdate" parameterType="com.link.pojo.Book">
+        update book set status=0 where bookname=#{bookname}
+    </update>
+    <update id="returnUpdate" parameterType="com.link.pojo.Book">
+        update book set status=1 where bookname=#{bookname}
+    </update>
+
+</mapper>

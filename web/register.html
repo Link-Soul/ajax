@@ -6,15 +6,16 @@
 
 </head>
 <body>
-<form action="/register" method="post">
-    username<input type="text" id="username"><span id="un"></span> <br/>
-    password<input type="password" id="password1"><span id="pw1"></span><br/>
-    qrpasswd<input type="password" id="password2"><span id="pw2"></span><br/>
-    realname<input type="text" id="realname"><br/>
-    phone<input type="text" id="phone"><span id="ph"></span><br/>
-    email<input type="text" id="email"><span id="em"></span><br/>
-    <button id="confirm">confirm</button>
-    <button id="register">register</button>
+<form action="/ajax_war_exploded/register" method="post">
+    username<input type="text" id="username" name="username" ><span id="un"></span> <br/>
+    password<input type="password" id="password1" name="password"><span id="pw1"></span><br/>
+    qrpasswd<input type="password" id="password2" ><span id="pw2"></span><br/>
+    realname<input type="text" id="realname" name="realname"><br/>
+    phone<input type="text" id="phone" name="phone"><span id="ph"></span><br/>
+    email<input type="text" id="email" name="email"><span id="em"></span><br/>
+
+    <button type="button" id="register">register</button>
+    <button type="submit" id="trueRegister" hidden="hidden"></button>
 </form>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -92,14 +93,15 @@
 
         }
     })
-    $("#confirm").click(function () {
-        alert(determine)
-    })
-    $("#register").click(function (){
-        if (determine===5){
-
+    $("#register").click(function () {
+        console.log(determine)
+        if (determine === 5 ){
+            $("#trueRegister").click()
+        }else{
+            alert("no")
         }
     })
+
 
 </script>
 </body>

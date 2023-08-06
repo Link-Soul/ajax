@@ -6,6 +6,17 @@ public class User {
     private String password;
     private String realname;
     private String email;
+    private String phone;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+
 
 
     @Override
@@ -16,6 +27,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", realname='" + realname + '\'' +
                 ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
                 '}';
     }
 

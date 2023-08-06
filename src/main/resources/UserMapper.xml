@@ -6,5 +6,11 @@
 <select id="queryUserByName" resultType="com.link.pojo.User" parameterType="com.link.pojo.User">
     select username from user where username = #{username}
 </select >
+<insert id="register" parameterType="com.link.pojo.User">
+    insert into user value(#{u_id},#{username},#{password},#{realname},#{email},#{phone})
+</insert>
+<select id="login" resultType="com.link.pojo.User" parameterType="com.link.pojo.User">
+    select username , password from user where username = #{username} and password=#{password}
+</select>
 
 </mapper>

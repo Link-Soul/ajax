@@ -3,6 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
+        <settings>
+            <setting name="logImpl" value="STDOUT_LOGGING"/>
+            <setting name="mapUnderscoreToCamelCase" value="False"/>
+            <!--与log4j共同使用好像用的还是log4j-->
+        </settings>
+
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
@@ -17,6 +24,7 @@
     <!-- 映射配置文件-->
     <mappers>
         <mapper resource="UserMapper.xml"/>
+        <mapper resource="BookMapper.xml"/>
         <!-- <mapper class="com.by.dao.StudentDao.xml"></mapper>-->  <!--注意 ：若使用class  映射配置文件必须和接口保持在同一个报下并且名称一致-->
     </mappers>
 </configuration>

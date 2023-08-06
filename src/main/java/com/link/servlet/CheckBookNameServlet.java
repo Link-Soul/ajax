@@ -1,8 +1,9 @@
 package com.link.servlet;
 
 import com.alibaba.fastjson.JSON;
-import com.link.pojo.User;
-import com.link.service.UserService;
+import com.link.pojo.Book;
+import com.link.service.BookService;
+import com.link.service.Impl.BookServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,28 +13,24 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import com.alibaba.fastjson.JSONObject;
 
-
-@WebServlet("/checkUserName")
-public class checkUserNameServlet extends HttpServlet {
-    private UserService userService = new UserService();
+@WebServlet("/checkBookName")
+public class CheckBookNameServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = req.getParameter("username");
-        User user = userService.queryUserByName(username);
-        Map<String, Object> map = new HashMap<>();
+        BookService bookService = new BookServiceImpl();
+        String checkBookName = req.getParameter("bookname");
+        List<Book> books= bookService.checkInsert(checkBookName);
+        Map<String,Object> map = new HashMap<>();
 
-        if (user!=null){
-            map.put("result",true);
-        }else {
-            map.put("result",false);
-        }
+        map.put("result",books.size());
+
         PrintWriter pw = resp.getWriter();
         pw.write(JSON.toJSONString(map));
+
 
     }
 }
